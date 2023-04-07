@@ -16,11 +16,14 @@ const Department = () => {
   }
 
   const loadTeachers = async () => {
-    const response = await fetch("/api/teacher", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      "https://cms-server-80fv.onrender.com/api/teacher",
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     const json = await response.json();
 
     if (response.ok) {

@@ -24,12 +24,15 @@ const MeetingShow = (props) => {
     e.preventDefault();
 
     setIsPending(true);
-    const response = await fetch("/api/meetings/" + props.meeting._id, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      "https://cms-server-80fv.onrender.com/api/meetings/" + props.meeting._id,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     const json = await response.json();
 
     if (response.ok) {
@@ -47,14 +50,17 @@ const MeetingShow = (props) => {
 
   const handleUpdate = async () => {
     setIsPending(true);
-    const res = await fetch("/api/meetings/" + props.meeting._id, {
-      method: "PATCH",
-      body: JSON.stringify(props.meeting),
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      "https://cms-server-80fv.onrender.com/api/meetings/" + props.meeting._id,
+      {
+        method: "PATCH",
+        body: JSON.stringify(props.meeting),
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const json = await res.json();
     if (res.ok) {
       dispatch({ type: "UPDATE_MEETING", payload: json });

@@ -11,7 +11,10 @@ const Year = () => {
 
   const loadStudents = async () => {
     const response = await fetch(
-      "/api/student?departmentId=" + department._id + "&year=" + i,
+      "https://cms-server-80fv.onrender.com/api/student?departmentId=" +
+        department._id +
+        "&year=" +
+        i,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,

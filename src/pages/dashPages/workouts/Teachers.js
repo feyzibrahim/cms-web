@@ -9,7 +9,9 @@ const Teachers = () => {
   var today = new Date(),
     date = today.toTimeString();
 
-  const { workouts, isPending, error } = useFetch("/api/workouts");
+  const { workouts, isPending, error } = useFetch(
+    "https://cms-server-80fv.onrender.com/api/workouts"
+  );
 
   return (
     <div className="Teachershome addSomeMargin">

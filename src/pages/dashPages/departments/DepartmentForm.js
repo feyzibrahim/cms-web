@@ -29,14 +29,17 @@ const DepartmentForm = (props) => {
       students_count,
     };
 
-    const response = await fetch("/api/department", {
-      method: "POST",
-      body: JSON.stringify(department),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      "https://cms-server-80fv.onrender.com/api/department",
+      {
+        method: "POST",
+        body: JSON.stringify(department),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
 
     const json = await response.json();
 

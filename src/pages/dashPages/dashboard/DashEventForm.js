@@ -36,7 +36,7 @@ const DashEventForm = (props) => {
         eventRemarks,
       };
 
-      const response = await fetch("/api/event", {
+      const response = await fetch("https://cms-server-80fv.onrender.com/api/event", {
         method: "POST",
         body: JSON.stringify(event),
         headers: {

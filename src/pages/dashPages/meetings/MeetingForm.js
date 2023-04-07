@@ -29,14 +29,17 @@ const MeetingForm = (props) => {
       isOver,
     };
 
-    const response = await fetch("/api/meetings", {
-      method: "POST",
-      body: JSON.stringify(meeting),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      "https://cms-server-80fv.onrender.com/api/meetings",
+      {
+        method: "POST",
+        body: JSON.stringify(meeting),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
 
     const json = await response.json();
 

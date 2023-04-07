@@ -9,12 +9,15 @@ const AnnouncementTile = ({ annouce }) => {
   const { dispatch } = useAnnouncementContext();
 
   const handleDelete = async () => {
-    const response = await fetch("/api/announcement/" + annouce._id, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      "https://cms-server-80fv.onrender.com/api/announcement/" + annouce._id,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
 
     const json = await response.json();
 

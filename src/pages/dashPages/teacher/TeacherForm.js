@@ -33,11 +33,14 @@ const TeacherForm = (props) => {
   };
 
   const loadDepartment = async () => {
-    const res = await fetch("/api/department", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const res = await fetch(
+      "https://cms-server-80fv.onrender.com/api/department",
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
 
     const json = await res.json();
 
@@ -83,14 +86,17 @@ const TeacherForm = (props) => {
       salary,
     };
 
-    const response = await fetch("/api/teacher", {
-      method: "POST",
-      body: JSON.stringify(teacher),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      "https://cms-server-80fv.onrender.com/api/teacher",
+      {
+        method: "POST",
+        body: JSON.stringify(teacher),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
 
     const json = await response.json();
 
@@ -119,17 +125,20 @@ const TeacherForm = (props) => {
   };
 
   const signup = async (email, password, userType, collegeId, dataAccessId) => {
-    const response = await fetch("/api/user/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-        password,
-        userType,
-        collegeId,
-        dataAccessId,
-      }),
-    });
+    const response = await fetch(
+      "https://cms-server-80fv.onrender.com/api/user/signup",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+          userType,
+          collegeId,
+          dataAccessId,
+        }),
+      }
+    );
 
     const json = await response.json();
     if (!response.ok) {

@@ -23,12 +23,15 @@ const DashEventShow = (props) => {
     e.preventDefault();
 
     setIsPending(true);
-    const response = await fetch("/api/event/" + props.e._id, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      "https://cms-server-80fv.onrender.com/api/event/" + props.e._id,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     const json = await response.json();
 
     if (response.ok) {

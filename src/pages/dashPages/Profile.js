@@ -16,14 +16,17 @@ const Profile = () => {
 
   const handleUpdate = async () => {
     console.log(college);
-    const res = await fetch("/api/college/" + college._id, {
-      method: "PATCH",
-      body: JSON.stringify(college),
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      "https://cms-server-80fv.onrender.com/api/college/" + college._id,
+      {
+        method: "PATCH",
+        body: JSON.stringify(college),
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const json = await res.json();
     if (res.ok) {
@@ -40,12 +43,15 @@ const Profile = () => {
   useEffect(() => {
     const abortConst = new AbortController();
     const fetchData = async () => {
-      const response = await fetch("/api/college", {
-        signal: abortConst.signal,
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://cms-server-80fv.onrender.com/api/college",
+        {
+          signal: abortConst.signal,
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const json = await response.json();
 
       if (response.ok) {

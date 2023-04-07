@@ -14,7 +14,7 @@ const Subject = (props) => {
 
   const loadSubjects = async () => {
     const response = await fetch(
-      "/api/department/" + deptId + "/subjects?year=" + props.year,
+      "https://cms-server-80fv.onrender.com/api/department/" + deptId + "/subjects?year=" + props.year,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,

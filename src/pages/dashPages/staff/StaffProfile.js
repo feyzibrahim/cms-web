@@ -36,12 +36,15 @@ const StaffProfile = (props) => {
   const handleDelete = () => {
     const deleteData = async () => {
       setIsPending(true);
-      const response = await fetch("/api/staff/" + staff._id, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://cms-server-80fv.onrender.com/api/staff/" + staff._id,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const json = await response.json();
 
       if (response.ok) {
@@ -64,14 +67,17 @@ const StaffProfile = (props) => {
 
   const handleUpdation = async () => {
     setIsPending(true);
-    const res = await fetch("/api/staff/" + staff._id, {
-      method: "PATCH",
-      body: JSON.stringify(staff),
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      "https://cms-server-80fv.onrender.com/api/staff/" + staff._id,
+      {
+        method: "PATCH",
+        body: JSON.stringify(staff),
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const json = await res.json();
     if (res.ok) {
       dispatch({ type: "UPDATE_STAFF", payload: json });

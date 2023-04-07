@@ -25,14 +25,17 @@ const DashAnnounceForm = (props) => {
         announcementDiscription,
       };
 
-      const response = await fetch("/api/announcement", {
-        method: "POST",
-        body: JSON.stringify(annoucement),
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://cms-server-80fv.onrender.com/api/announcement",
+        {
+          method: "POST",
+          body: JSON.stringify(annoucement),
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
 
       const json = await response.json();
 

@@ -30,7 +30,9 @@ const SubjectForm = (props) => {
       };
 
       const response = await fetch(
-        "/api/department/" + props.deptId + "/subjects",
+        "https://cms-server-80fv.onrender.com/api/department/" +
+          props.deptId +
+          "/subjects",
         {
           method: "POST",
           body: JSON.stringify(subject),

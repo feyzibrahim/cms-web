@@ -22,12 +22,15 @@ const Management = () => {
   useEffect(() => {
     const abortConst = new AbortController();
     const fetchData = async () => {
-      const response = await fetch("/api/management", {
-        signal: abortConst.signal,
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://cms-server-80fv.onrender.com/api/management",
+        {
+          signal: abortConst.signal,
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const json = await response.json();
 
       if (response.ok) {
@@ -102,7 +105,7 @@ const Management = () => {
                     add a Member to Management.
                   </h5>
                   <button
-                    className="fullColeredButton"
+                    className="fullColoredButton"
                     onClick={() => showForm()}
                   >
                     Click Here

@@ -47,14 +47,17 @@ const StaffForm = (props) => {
       salary,
     };
 
-    const response = await fetch("/api/staff", {
-      method: "POST",
-      body: JSON.stringify(staff),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      "https://cms-server-80fv.onrender.com/api/staff",
+      {
+        method: "POST",
+        body: JSON.stringify(staff),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
 
     const json = await response.json();
 
@@ -82,17 +85,20 @@ const StaffForm = (props) => {
   };
 
   const signup = async (email, password, userType, collegeId, dataAccessId) => {
-    const response = await fetch("/api/user/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-        password,
-        userType,
-        collegeId,
-        dataAccessId,
-      }),
-    });
+    const response = await fetch(
+      "https://cms-server-80fv.onrender.com/api/user/signup",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+          userType,
+          collegeId,
+          dataAccessId,
+        }),
+      }
+    );
 
     const json = await response.json();
     if (!response.ok) {

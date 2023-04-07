@@ -23,12 +23,15 @@ const Departments = () => {
   useEffect(() => {
     const abortConst = new AbortController();
     const fetchData = async () => {
-      const response = await fetch("/api/department", {
-        signal: abortConst.signal,
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://cms-server-80fv.onrender.com/api/department",
+        {
+          signal: abortConst.signal,
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const json = await response.json();
 
       if (response.ok) {
