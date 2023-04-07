@@ -1158,6 +1158,19 @@ padding-left: 20px;
   cursor: pointer;
 }
 
+.dashEventButton {
+  display: flex;
+  flex-direction: row;
+}
+
+.dashEventButton button:nth-child(1) {
+  margin-right: 5px;
+}
+
+.dashEventButton button:nth-child(2) {
+  margin-left: 5px;
+}
+
 /* Year */
 
 

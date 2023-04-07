@@ -7,13 +7,14 @@ const DashEventShow = (props) => {
   const { dispatch } = useEventContext();
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const getDateFrom = (dd) => {
     var curr = new Date(dd);
     var date = curr.toISOString().substring(0, 10);
     return date;
   };
-  // const getTimefrom = (dd) => {
+  // const getTimeFrom = (dd) => {
   //   var curr = new Date(parseInt(dd));
   //   var date = curr.toISOString().substring(12, 19);
   //   return date;
@@ -47,11 +48,33 @@ const DashEventShow = (props) => {
     }
   };
 
+  const handleUpdate = async () => {
+    const res = await fetch(
+      "https://cms-server-80fv.onrender.com/api/event/" + props.e._id,
+      {
+        method: "PATCH",
+        body: JSON.stringify(props.e),
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const json = await res.json();
+    if (res.ok) {
+      dispatch({ type: "UPDATE_EVENT", payload: json });
+    }
+
+    if (!res.ok) {
+      console.log(res.error);
+    }
+  };
+
   return (
     <div className="fullScreenDiv">
       <div className="dashCForm">
         <div className="dashCHeader">
-          <h2>New Event</h2>
+          <h2>Event Details</h2>
           <span
             className="material-symbols-outlined"
             onClick={props.toggleEventDetails}
@@ -65,21 +88,25 @@ const DashEventShow = (props) => {
             type="text"
             placeholder="Enter The Event Name"
             defaultValue={props.e.eventName}
-            disabled
+            disabled={isDisabled}
+            onChange={(e) => (props.e.eventName = e.target.value)}
           />
           <label>Date</label>
           <input
             type="date"
             defaultValue={getDateFrom(props.e.eventDateAndTime)}
+            disabled={isDisabled}
+            onChange={(e) => (props.e.eventDateAndTime = e.target.value)}
           />
           {/* <label>Time</label>
-          <input type="text" defaultValue={getTimefrom(props.e.eventTime)} /> */}
+          <input type="text" defaultValue={getTimeFrom(props.e.eventTime)} /> */}
           <label>Organized By</label>
           <input
             type="text"
             placeholder="Organizers Name Here"
             defaultValue={props.e.eventOrganizer}
-            disabled
+            disabled={isDisabled}
+            onChange={(e) => (props.e.eventOrganizer = e.target.value)}
           />
           <label>
             Remarks <span className="optional">(Optional)</span>
@@ -88,12 +115,29 @@ const DashEventShow = (props) => {
             type="text"
             placeholder="If any notes regarding the events"
             defaultValue={props.e.eventRemarks}
-            disabled
+            disabled={isDisabled}
+            onChange={(e) => (props.e.eventRemarks = e.target.value)}
           />
           {error && <div className="workoutError">{error}</div>}
-          <button className="fullColoredButton" onClick={handleDelete}>
-            {isPending ? "Loading..." : "DELETE THE EVENT"}
-          </button>
+          <div className="dashEventButton">
+            <button className="fullColoredButton" onClick={handleDelete}>
+              {isPending ? "Loading..." : "DELETE THE EVENT"}
+            </button>
+            <button
+              className="fullColoredButton"
+              onClick={(e) => {
+                e.preventDefault();
+                if (isDisabled) {
+                  setIsDisabled(false);
+                } else {
+                  setIsDisabled(true);
+                  handleUpdate();
+                }
+              }}
+            >
+              {isDisabled ? "Edit" : "UPDATE THE EVENT"}
+            </button>
+          </div>
         </form>
       </div>
     </div>
