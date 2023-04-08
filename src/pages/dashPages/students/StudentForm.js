@@ -152,7 +152,7 @@ const StudentForm = (props) => {
     }
 
     if (response.ok) {
-      signup(email, password, userTypeG, json.user_id, json._id);
+      signup(student_name, email, password, userTypeG, json.user_id, json._id);
       setStudentName("");
       setEmail("");
       setPassword("");
@@ -183,13 +183,22 @@ const StudentForm = (props) => {
     }
   };
 
-  const signup = async (email, password, userType, collegeId, dataAccessId) => {
+  const signup = async (
+    student_name,
+    email,
+    password,
+    userType,
+    collegeId,
+    dataAccessId
+  ) => {
+    const name = student_name;
     const response = await fetch(
       "https://cms-server-80fv.onrender.com/api/user/signup",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          name,
           email,
           password,
           userType,

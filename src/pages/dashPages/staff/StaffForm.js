@@ -84,13 +84,22 @@ const StaffForm = (props) => {
     }
   };
 
-  const signup = async (email, password, userType, collegeId, dataAccessId) => {
+  const signup = async (
+    staffName,
+    email,
+    password,
+    userType,
+    collegeId,
+    dataAccessId
+  ) => {
+    const name = staffName;
     const response = await fetch(
       "https://cms-server-80fv.onrender.com/api/user/signup",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          name,
           email,
           password,
           userType,

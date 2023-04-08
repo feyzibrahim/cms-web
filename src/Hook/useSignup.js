@@ -6,15 +6,18 @@ export const useSignup = () => {
   const [isloading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
 
-  const signup = async (email, password, userType) => {
+  const signup = async (email, password, userType, name) => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("api/user/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, userType }),
-    });
+    const response = await fetch(
+      "https://cms-server-80fv.onrender.com/api/user/signup",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password, userType }),
+      }
+    );
 
     const json = await response.json();
     if (!response.ok) {
