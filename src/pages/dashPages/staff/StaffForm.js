@@ -23,8 +23,6 @@ const StaffForm = (props) => {
 
   const { dispatch } = useStaffContext();
 
-  const userTypeG = "staff";
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) {
@@ -66,8 +64,6 @@ const StaffForm = (props) => {
     }
 
     if (response.ok) {
-      console.log("New Staff Added", json);
-      signup(email, password, userTypeG, json.user_id, json._id);
       setStaffName("");
       setEmail("");
       setPassword("");
@@ -81,42 +77,7 @@ const StaffForm = (props) => {
 
       setError("");
       dispatch({ type: "CREATE_STAFF", payload: json });
-    }
-  };
-
-  const signup = async (
-    staffName,
-    email,
-    password,
-    userType,
-    collegeId,
-    dataAccessId
-  ) => {
-    const name = staffName;
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/user/signup",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          userType,
-          collegeId,
-          dataAccessId,
-        }),
-      }
-    );
-
-    const json = await response.json();
-    if (!response.ok) {
-      setError(json.error);
-    }
-
-    if (response.ok) {
       props.showForm();
-      console.log("New User Created", json);
     }
   };
 

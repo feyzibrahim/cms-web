@@ -110,7 +110,15 @@ const TeacherForm = (props) => {
 
     if (response.ok) {
       console.log("New Teacher Added", json);
-      signup(teacherName, email, password, userTypeG, json.user_id, json._id);
+      signup(
+        teacherName,
+        email,
+        password,
+        userTypeG,
+        json.user_id,
+        json._id,
+        departmentId
+      );
       setTeacherName("");
       setEmail("");
       setPassword("");
@@ -134,7 +142,8 @@ const TeacherForm = (props) => {
     password,
     userType,
     collegeId,
-    dataAccessId
+    dataAccessId,
+    departmentId
   ) => {
     const name = teacherName;
     const response = await fetch(
@@ -149,6 +158,7 @@ const TeacherForm = (props) => {
           userType,
           collegeId,
           dataAccessId,
+          departmentId,
         }),
       }
     );

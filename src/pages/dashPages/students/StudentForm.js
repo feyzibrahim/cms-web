@@ -152,7 +152,15 @@ const StudentForm = (props) => {
     }
 
     if (response.ok) {
-      signup(student_name, email, password, userTypeG, json.user_id, json._id);
+      signup(
+        student_name,
+        email,
+        password,
+        userTypeG,
+        json.user_id,
+        json._id,
+        departmentId
+      );
       setStudentName("");
       setEmail("");
       setPassword("");
@@ -189,7 +197,8 @@ const StudentForm = (props) => {
     password,
     userType,
     collegeId,
-    dataAccessId
+    dataAccessId,
+    departmentId
   ) => {
     const name = student_name;
     const response = await fetch(
@@ -204,6 +213,7 @@ const StudentForm = (props) => {
           userType,
           collegeId,
           dataAccessId,
+          departmentId,
         }),
       }
     );

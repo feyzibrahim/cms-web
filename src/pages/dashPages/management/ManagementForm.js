@@ -23,8 +23,6 @@ const ManagementForm = (props) => {
 
   const { dispatch } = useManagementContext();
 
-  const userTypeG = "management";
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) {
@@ -66,8 +64,6 @@ const ManagementForm = (props) => {
     }
 
     if (response.ok) {
-      console.log("New Teacher Added", json);
-      signup(email, password, userTypeG, json.user_id, json._id);
       setManagerName("");
       setEmail("");
       setPassword("");
@@ -81,33 +77,7 @@ const ManagementForm = (props) => {
 
       setError("");
       dispatch({ type: "CREATE_MANAGEMENT", payload: json });
-    }
-  };
-
-  const signup = async (email, password, userType, collegeId, dataAccessId) => {
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/user/signup",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-          userType,
-          collegeId,
-          dataAccessId,
-        }),
-      }
-    );
-
-    const json = await response.json();
-    if (!response.ok) {
-      setError(json.error);
-    }
-
-    if (response.ok) {
       props.showForm();
-      console.log("New User Created", json);
     }
   };
 
