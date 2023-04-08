@@ -168,7 +168,7 @@ const StudentProfile = (props) => {
               />
               <label>Registration Number</label>
               <input
-                type="number"
+                type="text"
                 defaultValue={student.registrationNumber}
                 disabled={isInputDisabled}
                 onChange={(e) => {
