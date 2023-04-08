@@ -159,7 +159,7 @@ const StudentForm = (props) => {
         userTypeG,
         json.user_id,
         json._id,
-        departmentId
+        department_id
       );
       setStudentName("");
       setEmail("");
