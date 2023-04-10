@@ -2,6 +2,7 @@ import React from "react";
 import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
 import { useDepartmentContext } from "../../../Hook/contextHooks/useDepartmentContext";
 import { NavLink } from "react-router-dom";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const DepartmentTile = ({ department }) => {
   const { user } = useAuthContext();
@@ -13,7 +14,7 @@ const DepartmentTile = ({ department }) => {
     }
 
     const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/department/" + department._id,
+      `${BASE_URL}/api/department/${department._id}`,
       {
         method: "DELETE",
         headers: {

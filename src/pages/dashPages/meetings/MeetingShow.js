@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
 import { useMeetingContext } from "../../../Hook/contextHooks/useMeetingContext";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const MeetingShow = (props) => {
   const { user } = useAuthContext();
@@ -25,7 +26,7 @@ const MeetingShow = (props) => {
 
     setIsPending(true);
     const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/meetings/" + props.meeting._id,
+      `${BASE_URL}/api/meetings/${props.meeting._id}`,
       {
         method: "DELETE",
         headers: {
@@ -50,17 +51,14 @@ const MeetingShow = (props) => {
 
   const handleUpdate = async () => {
     setIsPending(true);
-    const res = await fetch(
-      "https://cms-server-80fv.onrender.com/api/meetings/" + props.meeting._id,
-      {
-        method: "PATCH",
-        body: JSON.stringify(props.meeting),
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${BASE_URL}/api/meetings/${props.meeting._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(props.meeting),
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+    });
     const json = await res.json();
     if (res.ok) {
       dispatch({ type: "UPDATE_MEETING", payload: json });

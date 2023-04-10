@@ -4,6 +4,7 @@ import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
 import { useStaffContext } from "../../../Hook/contextHooks/useStaffContext";
 import Select from "react-select";
 import Creatable from "react-select/creatable";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const StaffForm = (props) => {
   const { user } = useAuthContext();
@@ -45,17 +46,14 @@ const StaffForm = (props) => {
       salary,
     };
 
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/staff",
-      {
-        method: "POST",
-        body: JSON.stringify(staff),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/staff`, {
+      method: "POST",
+      body: JSON.stringify(staff),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
     const json = await response.json();
 

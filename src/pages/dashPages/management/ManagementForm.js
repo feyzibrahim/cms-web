@@ -4,6 +4,7 @@ import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
 import { useManagementContext } from "../../../Hook/contextHooks/useManagementContext";
 import Select from "react-select";
 import Creatable from "react-select/creatable";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const ManagementForm = (props) => {
   const { user } = useAuthContext();
@@ -45,17 +46,14 @@ const ManagementForm = (props) => {
       salary,
     };
 
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/management",
-      {
-        method: "POST",
-        body: JSON.stringify(management),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/management`, {
+      method: "POST",
+      body: JSON.stringify(management),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
     const json = await response.json();
 

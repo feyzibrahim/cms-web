@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuthContext } from "./contextHooks/useAuthContext";
+import { BASE_URL } from "../globalClasses/Config";
 
 export const useSignup = () => {
   const [error, setError] = useState(null);
@@ -10,14 +11,11 @@ export const useSignup = () => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/user/signup",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password, userType }),
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/user/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, password, userType }),
+    });
 
     const json = await response.json();
     if (!response.ok) {

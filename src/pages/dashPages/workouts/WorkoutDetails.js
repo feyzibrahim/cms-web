@@ -2,6 +2,7 @@ import React from "react";
 import { useWorkoutsContext } from "../../../Hook/contextHooks/useWorkoutsContext";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const WorkoutDetails = ({ workout }) => {
   const { user } = useAuthContext();
@@ -12,15 +13,12 @@ const WorkoutDetails = ({ workout }) => {
       return;
     }
 
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/workouts/" + workout._id,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/workouts/${workout._id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
     const json = await response.json();
     if (response.ok) {

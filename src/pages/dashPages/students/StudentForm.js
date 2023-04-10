@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
 import { useStudentContext } from "../../../Hook/contextHooks/useStudentContext";
 import Select from "react-select";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const StudentForm = (props) => {
   const { user } = useAuthContext();
@@ -61,14 +62,11 @@ const StudentForm = (props) => {
   };
 
   const loadDepartment = async () => {
-    const res = await fetch(
-      "https://cms-server-80fv.onrender.com/api/department",
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const res = await fetch(`${BASE_URL}/api/department`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
     const json = await res.json();
 
@@ -133,17 +131,14 @@ const StudentForm = (props) => {
       isActive,
     };
 
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/student",
-      {
-        method: "POST",
-        body: JSON.stringify(student),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/student`, {
+      method: "POST",
+      body: JSON.stringify(student),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
     const json = await response.json();
 
@@ -201,22 +196,19 @@ const StudentForm = (props) => {
     departmentId
   ) => {
     const name = student_name;
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/user/signup",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          userType,
-          collegeId,
-          dataAccessId,
-          departmentId,
-        }),
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/user/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        userType,
+        collegeId,
+        dataAccessId,
+        departmentId,
+      }),
+    });
 
     const json = await response.json();
     if (!response.ok) {

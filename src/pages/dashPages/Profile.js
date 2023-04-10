@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../Hook/contextHooks/useAuthContext";
 import Loader from "../../globalClasses/Loader";
+import { BASE_URL } from "../../globalClasses/Config";
 
 const Profile = () => {
   var today = new Date(),
@@ -16,17 +17,14 @@ const Profile = () => {
 
   const handleUpdate = async () => {
     console.log(college);
-    const res = await fetch(
-      "https://cms-server-80fv.onrender.com/api/college/" + college._id,
-      {
-        method: "PATCH",
-        body: JSON.stringify(college),
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${BASE_URL}/api/college/${college._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(college),
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+    });
 
     const json = await res.json();
     if (res.ok) {
@@ -43,15 +41,12 @@ const Profile = () => {
   useEffect(() => {
     const abortConst = new AbortController();
     const fetchData = async () => {
-      const response = await fetch(
-        "https://cms-server-80fv.onrender.com/api/college",
-        {
-          signal: abortConst.signal,
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+      const response = await fetch(`${BASE_URL}/api/college`, {
+        signal: abortConst.signal,
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       const json = await response.json();
 
       if (response.ok) {

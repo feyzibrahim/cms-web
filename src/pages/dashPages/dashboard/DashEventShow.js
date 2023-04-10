@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
 import { useEventContext } from "../../../Hook/contextHooks/useEventContext";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const DashEventShow = (props) => {
   const { user } = useAuthContext();
@@ -24,15 +25,12 @@ const DashEventShow = (props) => {
     e.preventDefault();
 
     setIsPending(true);
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/event/" + props.e._id,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/event/${props.e._id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
     const json = await response.json();
 
     if (response.ok) {
@@ -49,17 +47,14 @@ const DashEventShow = (props) => {
   };
 
   const handleUpdate = async () => {
-    const res = await fetch(
-      "https://cms-server-80fv.onrender.com/api/event/" + props.e._id,
-      {
-        method: "PATCH",
-        body: JSON.stringify(props.e),
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${BASE_URL}/api/event/${props.e._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(props.e),
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+    });
     const json = await res.json();
     if (res.ok) {
       dispatch({ type: "UPDATE_EVENT", payload: json });

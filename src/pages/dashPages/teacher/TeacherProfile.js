@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useTeacherContext } from "../../../Hook/contextHooks/useTeacherContext";
 import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
 import Select from "react-select";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const TeacherProfile = (props) => {
   const teacher = props.teacher;
@@ -21,14 +22,11 @@ const TeacherProfile = (props) => {
   };
 
   const loadDepartment = async () => {
-    const res = await fetch(
-      "https://cms-server-80fv.onrender.com/api/department",
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const res = await fetch(`${BASE_URL}/api/department`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
     const json = await res.json();
 
@@ -49,15 +47,12 @@ const TeacherProfile = (props) => {
   const handleDelete = () => {
     const deleteData = async () => {
       setIsPending(true);
-      const response = await fetch(
-        "https://cms-server-80fv.onrender.com/api/teacher/" + teacher._id,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+      const response = await fetch(`${BASE_URL}/api/teacher/${teacher._id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       const json = await response.json();
 
       if (response.ok) {
@@ -79,17 +74,14 @@ const TeacherProfile = (props) => {
 
   const handleUpdate = async () => {
     setIsPending(true);
-    const res = await fetch(
-      "https://cms-server-80fv.onrender.com/api/teacher/" + teacher._id,
-      {
-        method: "PATCH",
-        body: JSON.stringify(teacher),
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${BASE_URL}/api/teacher/${teacher._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(teacher),
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+    });
     const json = await res.json();
     if (res.ok) {
       dispatch({ type: "UPDATE_STAFF", payload: json });

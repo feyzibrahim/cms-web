@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
 import { useEventContext } from "../../../Hook/contextHooks/useEventContext";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const DashEventForm = (props) => {
   const [eventName, setEventName] = useState("");
@@ -36,7 +37,7 @@ const DashEventForm = (props) => {
         eventRemarks,
       };
 
-      const response = await fetch("https://cms-server-80fv.onrender.com/api/event", {
+      const response = await fetch(`${BASE_URL}/api/event`, {
         method: "POST",
         body: JSON.stringify(event),
         headers: {

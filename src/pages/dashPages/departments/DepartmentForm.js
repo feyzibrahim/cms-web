@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
 import { useDepartmentContext } from "../../../Hook/contextHooks/useDepartmentContext";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const DepartmentForm = (props) => {
   const { user } = useAuthContext();
@@ -29,17 +30,14 @@ const DepartmentForm = (props) => {
       students_count,
     };
 
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/department",
-      {
-        method: "POST",
-        body: JSON.stringify(department),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/department`, {
+      method: "POST",
+      body: JSON.stringify(department),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
     const json = await response.json();
 

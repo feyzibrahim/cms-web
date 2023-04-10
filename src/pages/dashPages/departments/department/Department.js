@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useAuthContext } from "../../../../Hook/contextHooks/useAuthContext";
 import YearRow from "./YearRow";
+import { BASE_URL } from "../../../../globalClasses/Config";
 
 const Department = () => {
   const { state } = useLocation();
@@ -16,14 +17,11 @@ const Department = () => {
   }
 
   const loadTeachers = async () => {
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/teacher",
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/teacher`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
     const json = await response.json();
 
     if (response.ok) {

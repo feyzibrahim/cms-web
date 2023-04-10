@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
 import { useMeetingContext } from "../../../Hook/contextHooks/useMeetingContext";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const MeetingForm = (props) => {
   const { user } = useAuthContext();
@@ -29,17 +30,14 @@ const MeetingForm = (props) => {
       isOver,
     };
 
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/meetings",
-      {
-        method: "POST",
-        body: JSON.stringify(meeting),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/meetings`, {
+      method: "POST",
+      body: JSON.stringify(meeting),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
     const json = await response.json();
 

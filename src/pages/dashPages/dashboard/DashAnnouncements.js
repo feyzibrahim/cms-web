@@ -4,6 +4,7 @@ import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
 import Loader from "../../../globalClasses/Loader";
 import { useAnnouncementContext } from "../../../Hook/contextHooks/useAnnouncementContext";
 import AnnouncementTile from "./AnnouncementTile";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const DashAnnouncements = () => {
   const [showAnnouForm, setShowAnnouForm] = useState(false);
@@ -18,14 +19,11 @@ const DashAnnouncements = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        "https://cms-server-80fv.onrender.com/api/announcement",
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+      const response = await fetch(`${BASE_URL}/api/announcement`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       const json = await response.json();
 
       if (response.ok) {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../../../../Hook/contextHooks/useAuthContext";
 import SubjectForm from "./SubjectForm";
+import { BASE_URL } from "../../../../globalClasses/Config";
 
 const Subject = (props) => {
   const deptId = props.department._id;
@@ -14,7 +15,7 @@ const Subject = (props) => {
 
   const loadSubjects = async () => {
     const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/department/" + deptId + "/subjects?year=" + props.year,
+      `${BASE_URL}/api/department/${deptId}/subjects?year=${props.year}`,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,

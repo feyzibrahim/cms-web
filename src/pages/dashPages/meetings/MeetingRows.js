@@ -3,6 +3,7 @@ import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
 import { useMeetingContext } from "../../../Hook/contextHooks/useMeetingContext";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import MeetingShow from "./MeetingShow";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const MeetingRows = ({ meeting }) => {
   const { user } = useAuthContext();
@@ -25,17 +26,14 @@ const MeetingRows = ({ meeting }) => {
       isOver,
     };
 
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/meetings/" + meeting._id,
-      {
-        method: "PATCH",
-        body: JSON.stringify(meetingHere),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/meetings/${meeting._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(meetingHere),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
     const json = await response.json();
     if (response.ok) {
@@ -53,15 +51,12 @@ const MeetingRows = ({ meeting }) => {
       return;
     }
 
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/meetings/" + meeting._id,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/meetings/${meeting._id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
     const json = await response.json();
     if (response.ok) {

@@ -4,6 +4,7 @@ import Loader from "../../../globalClasses/Loader";
 import React, { useState, useEffect } from "react";
 import { useEventContext } from "../../../Hook/contextHooks/useEventContext";
 import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const DashEvents = () => {
   const [showDashCreateForm, setShowDashCreateForm] = useState(false);
@@ -18,14 +19,11 @@ const DashEvents = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        "https://cms-server-80fv.onrender.com/api/event",
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+      const response = await fetch(`${BASE_URL}/api/event`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       const json = await response.json();
 
       if (response.ok) {

@@ -6,6 +6,7 @@ import CollegeForm from "./CollegeForm";
 import Loader from "../../../globalClasses/Loader";
 import DashEvents from "./DashEvents";
 import DashAnnouncements from "./DashAnnouncements";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const Dash = () => {
   var today = new Date(),
@@ -20,15 +21,12 @@ const Dash = () => {
   useEffect(() => {
     const abortConst = new AbortController();
     const fetchData = async () => {
-      const response = await fetch(
-        "https://cms-server-80fv.onrender.com/api/college",
-        {
-          signal: abortConst.signal,
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+      const response = await fetch(`${BASE_URL}/api/college`, {
+        signal: abortConst.signal,
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       const json = await response.json();
 
       if (response.ok) {

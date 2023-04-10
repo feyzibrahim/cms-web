@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useAuthContext } from "../../../../Hook/contextHooks/useAuthContext";
 import Subject from "./Subject";
+import { BASE_URL } from "../../../../globalClasses/Config";
 
 const Year = () => {
   const { state } = useLocation();
@@ -11,10 +12,7 @@ const Year = () => {
 
   const loadStudents = async () => {
     const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/student?departmentId=" +
-        department._id +
-        "&year=" +
-        i,
+      `${BASE_URL}/api/student?departmentId=${department._id}&year=${i}`,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,

@@ -3,6 +3,7 @@ import { useManagementContext } from "../../../Hook/contextHooks/useManagementCo
 import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
 import Select from "react-select";
 import Creatable from "react-select/creatable";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const ManagementProfile = (props) => {
   const management = props.management;
@@ -37,7 +38,7 @@ const ManagementProfile = (props) => {
     const deleteData = async () => {
       setIsPending(true);
       const response = await fetch(
-        "https://cms-server-80fv.onrender.com/api/management/" + management._id,
+        `${BASE_URL}/api/management/${management._id}`,
         {
           method: "DELETE",
           headers: {
@@ -64,18 +65,15 @@ const ManagementProfile = (props) => {
     }
   };
 
-  const handleUpdation = async () => {
-    const res = await fetch(
-      "https://cms-server-80fv.onrender.com/api/management/" + management._id,
-      {
-        method: "PATCH",
-        body: JSON.stringify(management),
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  const handleUpdate = async () => {
+    const res = await fetch(`${BASE_URL}/api/management/${management._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(management),
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+    });
     const json = await res.json();
     if (res.ok) {
       dispatch({ type: "UPDATE_MANAGEMENT", payload: json });
@@ -226,7 +224,7 @@ const ManagementProfile = (props) => {
               if (isInputDisabled) {
                 setIsInputDisabled(false);
               } else {
-                handleUpdation();
+                handleUpdate();
                 setIsInputDisabled(true);
               }
             }}

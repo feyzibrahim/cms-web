@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
 import { useAnnouncementContext } from "../../../Hook/contextHooks/useAnnouncementContext";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const DashAnnounceShow = (props) => {
   const announce = props.announce;
@@ -12,7 +13,7 @@ const DashAnnounceShow = (props) => {
   const handleDelete = async () => {
     setIsLoading(true);
     const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/announcement/" + announce._id,
+      `${BASE_URL}/api/announcement/${announce._id}`,
       {
         method: "DELETE",
         headers: {
@@ -37,17 +38,14 @@ const DashAnnounceShow = (props) => {
 
   const handleUpdate = async () => {
     setIsLoading(true);
-    const res = await fetch(
-      "https://cms-server-80fv.onrender.com/api/announcement/" + announce._id,
-      {
-        method: "PATCH",
-        body: JSON.stringify(announce),
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${BASE_URL}/api/announcement/${announce._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(announce),
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+    });
     const json = await res.json();
     if (res.ok) {
       dispatch({ type: "UPDATE_ANNOUNCEMENT", payload: json });

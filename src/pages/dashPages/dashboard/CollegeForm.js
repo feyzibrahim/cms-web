@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useAuthContext } from "../../../Hook/contextHooks/useAuthContext";
+import { BASE_URL } from "../../../globalClasses/Config";
 
 const CollegeForm = () => {
   const { user } = useAuthContext();
@@ -30,17 +31,14 @@ const CollegeForm = () => {
 
     console.log(college);
 
-    const response = await fetch(
-      "https://cms-server-80fv.onrender.com/api/college",
-      {
-        method: "POST",
-        body: JSON.stringify(college),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/college`, {
+      method: "POST",
+      body: JSON.stringify(college),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
     const json = await response.json();
 
